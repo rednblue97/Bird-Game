@@ -33,3 +33,29 @@ class World:
         self._add_pipe()
         bird = Bird((WIDTH//2 - pipe_size, HEIGHT//2 - pipe_size), 30)
         self.player.add(bird)
+
+    def _scroll_x(self):
+        if self.playing:
+            self.world_shift = -6
+        else:
+            self.world_shift = -0
+
+    def _apply_gravity(self, player):
+        if self.playing or self.game_over:
+            player.direction.y += self.gravity
+            player.rect.y += player.direction.y
+
+    def _handle_collisions(self):
+        bird = self.player.sprite
+
+        #for clossion checking
+
+        if pygame.sprite.groupcollide(self.player,self.pipes, False, False) or bird.rect.bottom >= HEIGHT or bird.rect.top <= 0:
+            self.playing = False 
+            self.game_over = True
+        else:
+
+            bird = self.player.sprite
+            if bird.rect.x >= self.current_pipe.rect.centerx:
+                bird.score += 1
+                self.passed = True
