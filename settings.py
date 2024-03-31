@@ -1,7 +1,8 @@
 from os import walk
 import pygame
 
-WIDTH, HEIGHT = 600, 650
+WIDTH = 600
+HEIGHT = 650
 
 pipe_pair_sizes = [
     (1,7),
